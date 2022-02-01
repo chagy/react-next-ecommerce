@@ -1,67 +1,19 @@
 
-// interface Person {
-//         name: string,
-//         age: number
-//     }
 
-class Person {
-    name: string
-    age: number
 
-    constructor(name: string,age: number){
-        this.name = name;
-        this.age = age;
-    }
-}
+export default function play() {
 
-// type Person = {
-//     name: string,
-//     age: number
-// }
+    // const names: string[] = ["Filip","John"]
+    // const numbers: Array<number>= [1,2,3,4,5]
 
-type Data = string
+    const random = Math.random() > 0.5 ? "hello" : [1, 2]
 
-// interface PersonLoggerFn {
-//     (name: string, age: number): string;
-// }
-
-type PersonLoggerFn = (name: string,age?: number) => string
-
-export default function play(){
-    // console.log("Hellow World")
-    const name: string = "Filip"
-    const age: number = 30
-
-    const person: Person = {
-        name: "John",
-        age: 34
+    if (typeof random === "string") {
+        const upper = random.toUpperCase()
+    } else {
+        console.log(random)
     }
 
-    // function logPersonInfo(personName: string,personAge: number) : string{
-    //     // const info = "Name: "+personName+", age: "+personAge
-    //     const info = `Name: ${personName}, age: ${personAge}`
-    //     console.log(info)
-    //     return info
-    // }
+    console.log(random.length)
 
-    const logPersonInfo: PersonLoggerFn = (personName: string,personAge: number = 0) : string => {
-        // const info = "Name: "+personName+", age: "+personAge
-        const info = `Name: ${personName}, age: ${personAge}`
-        console.log(info)
-        return info
-    }
-
-
-    function logPersonInfo2(person: Person){
-        // const info = "Name: "+personName+", age: "+personAge
-        const info = `Name: ${person.name}, age: ${person.age}`
-        console.log(info)
-        return info
-    }
-
-    const log = logPersonInfo(name,age)
-    // logPersonInfo(true,false)
-    // logPersonInfo(12,12)
-    // logPersonInfo(null,undefined)
-    logPersonInfo2(new Person("Edward",50))
 }
