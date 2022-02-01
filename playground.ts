@@ -25,7 +25,7 @@ type Data = string
 //     (name: string, age: number): string;
 // }
 
-type PersonLoggerFn = (name: string,age: number) => string
+type PersonLoggerFn = (name: string,age?: number) => string
 
 export default function play(){
     // console.log("Hellow World")
@@ -44,7 +44,7 @@ export default function play(){
     //     return info
     // }
 
-    const logPersonInfo: PersonLoggerFn = (personName: string,personAge: number) : string => {
+    const logPersonInfo: PersonLoggerFn = (personName: string,personAge: number = 0) : string => {
         // const info = "Name: "+personName+", age: "+personAge
         const info = `Name: ${personName}, age: ${personAge}`
         console.log(info)
