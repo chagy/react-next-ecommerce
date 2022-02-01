@@ -1,16 +1,21 @@
 
 interface Person {
+    kind: "business" | "academic" | "otherType"
     name: string
     age: number
 }
 
 interface BusinessPerson extends Person {
+    kind: "business"
     salary: number
 }
 
 interface AcademicPerson extends Person {
+    kind: "academic"
     publications: string[]
 }
+
+type Human = BusinessPerson | AcademicPerson | { kind: "otherType", special: string }
 
 type RaceCar = {
     name: string,
@@ -34,10 +39,19 @@ export default function play() {
         team: "ferari"
     }
 
-    function logCarInfo(car: Car) {
-        console.log((car as CityCar).space)
-        console.log((<RaceCar>car).maxSpeed)
+    function logPersonInfo(human: Human) {
+        if (human.kind === "academic") {
+            console.log(human)
+        } else if (human.kind === "business") {
+            console.log(human)
+        } else if (human.kind === "otherType") {
+            console.log(human)
+        } else {
+            console.log(human)
+        }
+    }
 
+    function logCarInfo(car: Car) {
         switch (car.maxSpeed) {
             case 200:
                 console.log(car.team)
