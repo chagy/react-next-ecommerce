@@ -1,8 +1,18 @@
 
-interface Person {
-        name: string,
-        age: number
+// interface Person {
+//         name: string,
+//         age: number
+//     }
+
+class Person {
+    name: string
+    age: number
+
+    constructor(name: string,age: number){
+        this.name = name;
+        this.age = age;
     }
+}
 
 // type Person = {
 //     name: string,
@@ -53,5 +63,5 @@ export default function play(){
     // logPersonInfo(true,false)
     // logPersonInfo(12,12)
     // logPersonInfo(null,undefined)
-    logPersonInfo2(person)
+    logPersonInfo2(new Person("Edward",50))
 }
