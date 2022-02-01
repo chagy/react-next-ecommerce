@@ -12,7 +12,7 @@ export default function Home() {
     name: 'Filip'
   }
 
-  console.log(b.browser)
+  // console.log(b.browser)
 
   return (
     <div>
