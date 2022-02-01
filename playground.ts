@@ -9,6 +9,8 @@ interface Person {
 //     age: number
 // }
 
+type Data = string
+
 export default function play(){
     // console.log("Hellow World")
     const name: string = "Filip"
