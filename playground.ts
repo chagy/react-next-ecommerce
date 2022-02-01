@@ -11,6 +11,12 @@ interface Person {
 
 type Data = string
 
+// interface PersonLoggerFn {
+//     (name: string, age: number): string;
+// }
+
+type PersonLoggerFn = (name: string,age: number) => string
+
 export default function play(){
     // console.log("Hellow World")
     const name: string = "Filip"
@@ -21,12 +27,20 @@ export default function play(){
         age: 34
     }
 
-    function logPersonInfo(personName: string,personAge: number){
+    // function logPersonInfo(personName: string,personAge: number) : string{
+    //     // const info = "Name: "+personName+", age: "+personAge
+    //     const info = `Name: ${personName}, age: ${personAge}`
+    //     console.log(info)
+    //     return info
+    // }
+
+    const logPersonInfo: PersonLoggerFn = (personName: string,personAge: number) : string => {
         // const info = "Name: "+personName+", age: "+personAge
         const info = `Name: ${personName}, age: ${personAge}`
         console.log(info)
         return info
     }
+
 
     function logPersonInfo2(person: Person){
         // const info = "Name: "+personName+", age: "+personAge
@@ -35,7 +49,7 @@ export default function play(){
         return info
     }
 
-    logPersonInfo(name,age)
+    const log = logPersonInfo(name,age)
     // logPersonInfo(true,false)
     // logPersonInfo(12,12)
     // logPersonInfo(null,undefined)
