@@ -1,11 +1,29 @@
 
 
 interface Person {
-    name: string,
+    name: string
     age: number
+    city: string
 }
 
-class Logger<T> {
+class Student implements Person {
+    name = ""
+    age = 0
+    city = ""
+}
+
+class BussinessPerson implements Person {
+    name = ""
+    age = 0
+    city = ""
+    salary = 1000
+}
+
+interface Car {
+    name: string
+}
+
+class Logger<T extends Person> {
     log(items: Array<T>, callback: (i: T) => void) {
         items.forEach((item) => {
             callback(item)
@@ -15,32 +33,15 @@ class Logger<T> {
 
 export default function play() {
 
-    const logger = new Logger<string>()
-
-    const cars = ["audi", "skoda", "citroen"]
-
-    logger.log(cars, (car) => {
-        console.log(car.toUpperCase)
-    })
-
-    const logger2 = new Logger<number>()
-
-    const numbers = [1, 2, 3, 4]
-
-    logger2.log(numbers, (num) => {
-        console.log(num)
-    })
-
-
-    const logger3 = new Logger<Person>()
+    const logger = new Logger<BussinessPerson>()
 
     const persons = [
-        { name: 'filip', age: 30 },
-        { name: 'john', age: 25 }
+        { name: 'filip', age: 30, city: "" },
+        { name: 'john', age: 25, city: "" }
     ]
 
-    logger3.log(persons, (num) => {
-        console.log(num)
+    logger.log(persons, (person) => {
+        console.log(person)
     })
 
 }
