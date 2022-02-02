@@ -19,11 +19,14 @@ class BussinessPerson implements Person {
     salary = 1000
 }
 
-interface Car {
-    name: string
+type Car = {
+    brand: string,
+    age: number,
+    name: string,
+    city: string
 }
 
-class Logger<T extends Person> {
+class Logger<T extends Person = Car> {
     log(items: Array<T>, callback: (i: T) => void) {
         items.forEach((item) => {
             callback(item)
@@ -33,11 +36,11 @@ class Logger<T extends Person> {
 
 export default function play() {
 
-    const logger = new Logger<BussinessPerson>()
+    const logger = new Logger()
 
     const persons = [
-        { name: 'filip', age: 30, city: "" },
-        { name: 'john', age: 25, city: "" }
+        { name: 'filip', age: 30, city: "", brand: "" },
+        { name: 'john', age: 25, city: "", brand: "" }
     ]
 
     logger.log(persons, (person) => {
