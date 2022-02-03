@@ -2,22 +2,24 @@ interface Person {
     name: string
 }
 
-type CustomArray<T> = {
-    [index: number]: T
-}
-
-type CustomObject<T = string | number | Person> = {
-    [key: string]: T
-}
-
 export default function play() {
 
-    const person: CustomObject = {
-        "age": 23,
-        "name": "ad",
-        "city": "add",
-        person: {
-            name: "Filip"
-        }
+    function logger(...args: any[]) {
+        return "hello world"
     }
+
+    const kindaLogger: typeof logger = (name: string, age: number) => "Hi Guys!"
+
+    const person = {
+        name: "Filip",
+        age: 20
+    }
+
+    const person2: typeof person = {
+        name: "John",
+        age: 40
+    }
+
+    kindaLogger("", 20)
+
 }
