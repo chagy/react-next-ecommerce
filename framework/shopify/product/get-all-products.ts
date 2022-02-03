@@ -1,20 +1,10 @@
+import fetchApi from "../utils/fetch-api"
 
-const fetchApi = async () => {
-    const url = `https://jsonplaceholder.typicode.com/todos`
+import getAllProductQuery from "../utils/queries/get-all-products"
 
-    const res = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-
-    const data = await res.json()
-    return { data }
-}
 
 const getAllProducts = async (): Promise<any[]> => {
-    const products = await fetchApi()
+    const products = await fetchApi({ query: getAllProductQuery })
     return products.data
 }
 
