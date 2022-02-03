@@ -2,24 +2,14 @@ interface Person {
     name: string
 }
 
+type ReturnType<T> = T extends () => infer R ? R : unknown
+
 export default function play() {
 
-    function logger(...args: any[]) {
-        return "hello world"
+    function logger() {
+        return true
     }
 
-    const kindaLogger: typeof logger = (name: string, age: number) => "Hi Guys!"
-
-    const person = {
-        name: "Filip",
-        age: 20
-    }
-
-    const person2: typeof person = {
-        name: "John",
-        age: 40
-    }
-
-    kindaLogger("", 20)
+    const loggerReturn: ReturnType<typeof logger> = true
 
 }
