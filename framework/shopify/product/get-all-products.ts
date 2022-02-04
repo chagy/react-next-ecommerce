@@ -8,8 +8,13 @@ type ReturnType = {
 }
 
 const getAllProducts = async (): Promise<any> => {
-    const { data } = await fetchApi<{ products: ProductConnection }>({ query: getAllProductQuery })
-    return data.products
+    const { data } = await fetchApi<ReturnType>({ query: getAllProductQuery })
+
+    const products = data.products.edges.map(({ node: product }) => {
+        return product
+    }) ?? []
+
+    return products
 }
 
 export default getAllProducts;
