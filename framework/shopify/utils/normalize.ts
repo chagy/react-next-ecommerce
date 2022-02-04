@@ -1,4 +1,5 @@
 import { Product as ShopifyProduct, ImageEdge } from '../schema';
+import { Product } from "../../common/types/product"
 
 const normalizeProductImages = ({ edges }: { edges: Array<ImageEdge> }) =>
     edges.map(({ node: { originalSrc: url, ...rest } }) => ({
