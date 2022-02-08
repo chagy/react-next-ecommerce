@@ -11,8 +11,15 @@
   margin: 1px;
 
   flex-grow: 1;
+  flex-shrink: 1;
 }
 
 .child:first-child {
-  flex-grow: 5;
+  flex-grow: 1;
+  flex-shrink: 2;
+}
+
+.child:last-child {
+  flex-grow: 1;
+  flex-shrink: 5;
 }
