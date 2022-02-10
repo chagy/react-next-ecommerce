@@ -6,6 +6,7 @@ import {
 } from "next";
 import { getAllProductsPaths, getProduct } from "@framework/product";
 import { getConfig } from "@framework/api/config";
+import { Container } from "@components/ui";
 
 //fetch all of the products slugs
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -39,13 +40,47 @@ export default function ProductSlug({
   product,
 }: InferGetServerSidePropsType<typeof getStaticProps>) {
   return (
-    <div>
-      {product?.name}
-      {product?.slug}
-      {product?.path}
-      {product?.price.value}
-      {product?.price.currencyCode}
-    </div>
+    <Container>
+      <p>id: {product?.id}</p>
+      <p>name: {product?.name}</p>
+      <p>price value: {product?.price.value}</p>
+      <p>price currency: {product?.price.currencyCode}</p>
+      <p>description: {product?.description}</p>
+
+      <h1 className="mb-4 leading-4">OPIONS</h1>
+      <div>
+        {product?.options.map((option) => (
+          <div>
+            <p>Name: {option.displayName}</p>
+            {option.values.map((value) => (
+              <div>
+                <p>Label: {value.label}</p>
+                <p>Hex Color: {value.hexColor}</p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <h1 className="mb-4 leading-4">VARIANTS</h1>
+      <div>
+        {product?.variants.map((variant) => (
+          <div>
+            <p>Variant Name: {variant.name}</p>
+            {variant.options.map((vo) => (
+              <div>
+                <p>Name: {vo.displayName}</p>
+                {vo.values.map((value) => (
+                  <div>
+                    <p>Label: {value.label}</p>
+                    <p>Hexcolor: {value.hexColor}</p>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </Container>
   );
 }
 
