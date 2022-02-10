@@ -5,7 +5,7 @@ import cn from "classnames";
 import { useUI } from "@components/ui/context";
 
 const CartSidebar: FC = () => {
-  const isEmpty = false;
+  const isEmpty = true;
   const { closeSidebar } = useUI();
 
   const rootClass = cn("h-full flex flex-col", {
