@@ -16,7 +16,25 @@ const normalizeProductPrice = ({ currencyCode, amount }: MoneyV2) => ({
 })
 
 const normalizeProductOption = ({ id, values, name: displayName }: ProductOption) => {
-    return {}
+    const normalized = {
+        id,
+        displayName,
+        values: values.map(value => {
+            let output: any = {
+                label: value
+            }
+
+            if (displayName.match(/colou?r/gi)) {
+                output = {
+                    ...output,
+                    hexColor: value
+                }
+            }
+
+            return output
+        })
+    }
+    return normalized
 }
 
 export function normalizeProduct(productNode: ShopifyProduct): Product {
