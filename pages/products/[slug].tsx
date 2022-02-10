@@ -4,15 +4,15 @@ import {
   GetStaticPropsContext,
   InferGetServerSidePropsType,
 } from "next";
+import getAllProductsPaths from "@framework/product/get-all-products-paths";
+import { getConfig } from "@framework/api/config";
 
 //fetch all of the products slugs
 export const getStaticPaths: GetStaticPaths = async () => {
+  const config = getConfig();
+  const { products } = await getAllProductsPaths(config);
   return {
-    paths: [
-      { params: { slug: "cool-hat" } },
-      { params: { slug: "t-shirt" } },
-      { params: { slug: "lightweight-jacket" } },
-    ],
+    paths: products.map((p) => ({ params: { slug: p.slug } })),
     fallback: false,
   };
 };
