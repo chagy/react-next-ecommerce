@@ -1,3 +1,4 @@
+
 export type ApiFetcherOptions = {
     url: string,
     query: string,
@@ -16,4 +17,10 @@ export interface ApiConfig {
     fetch<T>(
         options: ApiFetcherOptions
     ): Promise<ApiFetcherResults<T>>
+}
+
+export interface ApiHooks {
+    cart: {
+        useAddItem: any
+    }
 }
