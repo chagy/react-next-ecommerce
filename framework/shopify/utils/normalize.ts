@@ -1,5 +1,17 @@
-import { Product as ShopifyProduct, ImageEdge, MoneyV2, ProductOption, ProductVariantConnection, SelectedOption } from '../schema';
+import {
+    Product as ShopifyProduct,
+    ImageEdge,
+    MoneyV2,
+    ProductOption,
+    ProductVariantConnection,
+    SelectedOption,
+    Checkout
+} from '../schema';
 import { Product } from "@common/types/product"
+
+export const normalizeCart = (checkout: Checkout): any => {
+    return checkout
+}
 
 const normalizeProductImages = ({ edges }: { edges: Array<ImageEdge> }) =>
     edges.map(({ node: { originalSrc: url, ...rest } }) => ({
@@ -83,8 +95,11 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
         slug: handle.replace(/^\/+|\/+$/g, ""),
         images: normalizeProductImages(imageConnection),
         price: normalizeProductPrice(priceRange.minVariantPrice),
-        options: options ? options.filter(o => o.name !== "Title").map(o => normalizeProductOption(o)) : [],
-        variants: variants ? normalizeProductVariants(variants) : [],
+        options: options ?
+            options.filter(o => o.name !== "Title")
+                .map(o => normalizeProductOption(o)) : [],
+        variants: variants ?
+            normalizeProductVariants(variants) : [],
         ...rest
     }
 
