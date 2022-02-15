@@ -6,8 +6,9 @@ export const handler = {
     fetchOptions: {
         query: "query {hello}"
     },
-    async fetcher({ fetch, options }: any) {
+    async fetcher({ fetch, options, input: { checkoutId } }: any) {
         const data = await fetch({ ...options })
+        console.log(checkoutId)
 
         return {
             data
