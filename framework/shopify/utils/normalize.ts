@@ -1,15 +1,16 @@
 import {
-    Product as ShopifyProduct,
+    Checkout,
+    CheckoutLineItemEdge,
     ImageEdge,
     MoneyV2,
+    Product as ShopifyProduct,
     ProductOption,
     ProductVariantConnection,
-    SelectedOption,
-    Checkout,
-    CheckoutLineItemEdge
-} from '../schema';
+    SelectedOption
+} from "../schema"
+
 import { Product } from "@common/types/product"
-import { Cart } from '@common/types/cart';
+import { Cart, LineItem } from "@common/types/cart"
 
 export const normalizeCart = (checkout: Checkout): Cart => {
     return {
@@ -26,18 +27,23 @@ export const normalizeCart = (checkout: Checkout): Cart => {
     }
 }
 
-const normalizeLineItem = ({ node: { id, title, variant, quantity, ...rest } }: CheckoutLineItemEdge): any => {
+const normalizeLineItem = ({
+    node: { id, title, variant, ...rest }
+}: CheckoutLineItemEdge): LineItem => {
     return {
         id,
         variantId: String(variant?.id),
         productId: String(variant?.id),
         name: title,
-        path: variant?.product.handle,
+        path: variant?.product?.handle ?? "",
         discounts: [],
         options: variant?.selectedOptions.map(({ name, value }: SelectedOption) => {
             const option = normalizeProductOption({
-                id, name, values: [value]
+                id,
+                name,
+                values: [value]
             })
+
             return option
         }),
         variant: {
@@ -45,7 +51,9 @@ const normalizeLineItem = ({ node: { id, title, variant, quantity, ...rest } }: 
             sku: variant?.sku ?? "",
             name: variant?.title,
             image: {
-                url: process.env.NEXT_PUBLIC_FRAMEWORK === "shopify_local" ? `/images/${variant?.image?.originalSrc}` : variant?.image?.originalSrc ?? "/product-img-placeholder.svg"
+                url: process.env.NEXT_PUBLIC_FRAMEWORK === "shopify_local" ?
+                    `/images/${variant?.image?.originalSrc}` :
+                    variant?.image?.originalSrc ?? "/product-image-placeholder.svg"
             },
             requiresShipping: variant?.requiresShipping ?? false,
             price: variant?.priceV2.amount,
@@ -63,13 +71,16 @@ const normalizeProductImages = ({ edges }: { edges: Array<ImageEdge> }) =>
     ))
 
 const normalizeProductPrice = ({ currencyCode, amount }: MoneyV2) => ({
-
     value: +amount,
     currencyCode
-
 })
 
-const normalizeProductOption = ({ id, values, name: displayName }: ProductOption) => {
+const normalizeProductOption = ({
+    id,
+    values,
+    name: displayName
+}: ProductOption) => {
+
     const normalized = {
         id,
         displayName,
@@ -88,16 +99,19 @@ const normalizeProductOption = ({ id, values, name: displayName }: ProductOption
             return output
         })
     }
+
     return normalized
 }
 
 const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
+
     return edges.map(({ node }) => {
         const { id, selectedOptions, sku, title, priceV2, compareAtPriceV2 } = node
+
         return {
             id,
             name: title,
-            sku: sku ?? id,
+            sku: sku || id,
             price: +priceV2.amount,
             listPrice: +compareAtPriceV2?.amount,
             requiresShipping: true,
