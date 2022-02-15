@@ -1,8 +1,14 @@
+import { ApiFetcher } from "@common/types/api"
+import { checkoutCreateMutation } from "./mutations"
 
-const createCheckout = () => {
-    console.log("Creating checkout")
+const createCheckout = async (
+    fetch: ApiFetcher
+): Promise<any> => {
+    const { data } = await fetch({
+        query: checkoutCreateMutation
+    })
 
-    return { data: "checkout created!" }
+    return data
 }
 
 export default createCheckout
