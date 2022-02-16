@@ -5,6 +5,7 @@ import { useUI } from "@components/ui/context";
 import useCart from "@framework/cart/use-cart";
 import { LineItem } from "@common/types/cart";
 import CartItem from "../CartItem";
+import { Button } from "@components/ui";
 
 const CartSidebar: FC = () => {
   const { closeSidebar } = useUI();
