@@ -7,18 +7,24 @@ export interface ApiHooks {
 }
 
 export type MutationHookContext = {
-    fetch: (input: any) => any
+    fetch: (input: any) => Promise<any>
 }
 
 export type FetcherHookContext = {
-    input: any
+    input?: any
     fetch: ApiFetcher
     options: ApiFetcherOptions
 }
 
+export type HookFetcherOptions = {
+    query: string
+}
+
+export type HookFetcherFn = (context: FetcherHookContext) => Promise<any>
+
 export type MutationHook = {
     fetcherOptions: ApiFetcherOptions,
-    fetcher: (input: FetcherHookContext) => any,
+    fetcher: HookFetcherFn,
     useHook(
         context: MutationHookContext
     ): (input: any) => any
