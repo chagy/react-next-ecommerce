@@ -1,9 +1,13 @@
-import useCart from "@common/cart/use-cart"
-import { Cart } from "@common/types/cart";
-import { SWRHook } from "@common/types/hooks";
-import { Checkout } from "@framework/schema";
-import { checkoutToCart, createCheckout, getCheckoutQuery } from "@framework/utils";
-import { useMemo } from "react";
+import useCart, { UseCart } from "@common/cart/use-cart"
+import { Cart } from "@common/types/cart"
+import { SWRHook } from "@common/types/hooks"
+import { Checkout } from "@framework/schema"
+import {
+    checkoutToCart,
+    createCheckout,
+    getCheckoutQuery
+} from "@framework/utils"
+import { useMemo } from "react"
 
 export type UseCartHookDescriptor = {
     fetcherInput: {
@@ -15,11 +19,11 @@ export type UseCartHookDescriptor = {
     data: Cart
 }
 
-
-export default useCart
+export default useCart as UseCart<typeof handler>
 
 export const handler: SWRHook<UseCartHookDescriptor> = {
     fetcherOptions: {
+        // get checkout query
         query: getCheckoutQuery
     },
     async fetcher({
@@ -27,21 +31,24 @@ export const handler: SWRHook<UseCartHookDescriptor> = {
         options,
         input: { checkoutId }
     }) {
-        let checkout: Checkout;
+        let checkout: Checkout
 
         if (checkoutId) {
-            const { data } = await fetch({ ...options, variables: { checkoutId } })
-
+            const { data } = await fetch({
+                ...options,
+                variables: {
+                    checkoutId
+                }
+            })
             checkout = data.node
         } else {
             checkout = await createCheckout(fetch as any)
         }
 
         const cart = checkoutToCart(checkout)
-
         return cart
     },
-    useHook: ({ useData }) => {
+    useHook: ({ useData }) => () => {
         const data = useData({
             swrOptions: {
                 revalidateOnFocus: false
