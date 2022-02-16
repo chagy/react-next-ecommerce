@@ -6,8 +6,8 @@ import { Trash, Plus, Minus } from "@components/icons";
 import { LineItem } from "@common/types/cart";
 import { Swatch } from "@components/product";
 import useRemoveItem from "@common/cart/use-remove-item";
-import { useUpdateItem } from "@common/cart";
 import { ChangeEvent, useState } from "react";
+import useUpdateItem from "@framework/cart/use-update-item";
 
 const CartItem = ({
   item,
@@ -27,7 +27,7 @@ const CartItem = ({
     if (Number.isInteger(val) && val >= 0) {
       setQuantity(val);
 
-      await updateItem({
+      updateItem({
         id: item.id,
         variantId: item.variantId,
         quantity: val,
